@@ -1,0 +1,28 @@
+# Build artifacts
+build/
+HowMuchClaude
+*.o
+*.d
+*.swp
+
+# Xcode
+*.xcodeproj/
+xcuserdata/
+*.xcworkspace/
+DerivedData/
+
+# Working files
+PLAN.md
+project.yml
+TODO.md
+NOTES.md
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
