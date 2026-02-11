@@ -47,12 +47,12 @@ final class StatusBarController: NSObject {
             accessibilityDescription: "HowMuchClaude"
         )
         button.image?.size = NSSize(width: 18, height: 18)
-        button.imagePosition = .imageOnly
+        button.imagePosition = .imageLeading
         button.action = #selector(statusBarButtonClicked)
         button.target = self
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
 
-        updateOverlayTooltip()
+        updateStatusBarTitle()
     }
 
     @objc private func statusBarButtonClicked(_ sender: NSStatusBarButton) {
@@ -171,20 +171,32 @@ final class StatusBarController: NSObject {
         statsManager.objectWillChange
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.updateOverlayTooltip()
+                self?.updateStatusBarTitle()
             }
             .store(in: &cancellables)
 
         settings.objectWillChange
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.updateOverlayTooltip()
+                self?.updateStatusBarTitle()
             }
             .store(in: &cancellables)
     }
 
-    private func updateOverlayTooltip() {
+    private func updateStatusBarTitle() {
+        guard let button = statusItem.button else { return }
         let quotas = statsManager.stats.apiQuotas
+
+        if let fiveHour = quotas.fiveHour {
+            let pct = Int(fiveHour.percentUsed)
+            let attrs: [NSAttributedString.Key: Any] = [
+                .font: NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium),
+            ]
+            button.attributedTitle = NSAttributedString(string: " \(pct)%", attributes: attrs)
+        } else {
+            button.title = ""
+        }
+
         var tooltip = "HowMuchClaude"
         if let fiveHour = quotas.fiveHour {
             tooltip += "\n5h: \(Int(fiveHour.percentUsed))% used"
@@ -192,7 +204,7 @@ final class StatusBarController: NSObject {
         if let sevenDay = quotas.sevenDay {
             tooltip += "\nWeek: \(Int(sevenDay.percentUsed))% used"
         }
-        statusItem.button?.toolTip = tooltip
+        button.toolTip = tooltip
     }
 
     @objc private func toggleOverlay() {
