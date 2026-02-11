@@ -9,7 +9,9 @@
 
 HowMuchClaude is a native macOS menu bar app that displays your Claude AI quota usage as a floating, always-on-top overlay. See your 5-hour session limit, weekly limit, and per-model quotas at a glance — without leaving your editor.
 
-<!-- ![Overview](screenshots/overview.png) -->
+<p align="center">
+  <img src="screenshots/overlay-dark.png" width="700" alt="HowMuchClaude overlay showing real-time Claude quota usage">
+</p>
 
 ---
 
@@ -58,7 +60,13 @@ HowMuchClaude is a native macOS menu bar app that displays your Claude AI quota 
 - **Launch at Login** — auto-start via SMAppService
 - **Menu bar integration** — tray icon with quick access to quotas, settings, and controls
 
-<!-- ![Settings](screenshots/settings-window.png) -->
+<p align="center">
+  <img src="screenshots/settings-appearance.png" width="700" alt="Settings window — Appearance tab with color themes">
+</p>
+
+<p align="center">
+  <img src="screenshots/settings-themes.png" width="700" alt="Settings window — size presets and opacity control">
+</p>
 
 ---
 
