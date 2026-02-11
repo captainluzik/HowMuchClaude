@@ -102,7 +102,11 @@ security find-generic-password -s "Claude Code-credentials" -w > /dev/null 2>&1 
 
 1. Download the latest `HowMuchClaude.app.zip` from [Releases](https://github.com/captainluzik/HowMuchClaude/releases)
 2. Unzip and move `HowMuchClaude.app` to `/Applications/`
-3. Right-click the app and select **Open** (required on first launch to bypass Gatekeeper)
+3. Remove the quarantine flag (the app is not code-signed):
+   ```bash
+   xattr -cr /Applications/HowMuchClaude.app
+   ```
+   Or: right-click the app → **Open** → click **Open** in the dialog
 4. A cloud icon appears in your menu bar — the overlay is live
 
 ### Option 2: Build from Source
